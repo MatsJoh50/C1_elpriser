@@ -1,19 +1,19 @@
 import java.util.ArrayList;
 
 public class MinMax {
-    public void minMaxMid(ArrayList<Inmatning.Elpris> sortedArray) {
+    public void minMaxMid(ArrayList<InputData.Elpris> sortedArray) {
         System.out.println("Lägsta pris: " + printHour(sortedArray.getFirst()));
         System.out.println("Högsta pris: " + printHour(sortedArray.getLast()));
         System.out.println("Medelpriset: " + midPrice(sortedArray) + " Öre");
     }
 
-    private String printHour(Inmatning.Elpris elpris) {
+    private String printHour(InputData.Elpris elpris) {
         return elpris.fromTime + "-" + elpris.toTime + ": " + elpris.pris + " Öre";
     }
 
-    private int midPrice(ArrayList<Inmatning.Elpris> sortedArray) {
+    private int midPrice(ArrayList<InputData.Elpris> sortedArray) {
         int sumOfPrices = 0;
-        for (Inmatning.Elpris elpris : sortedArray) {
+        for (InputData.Elpris elpris : sortedArray) {
             sumOfPrices += elpris.pris;
         }
         return sumOfPrices / sortedArray.size();

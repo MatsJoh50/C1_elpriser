@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
 public class BestPrice {
-    private ArrayList<Inmatning.Elpris> bestWindowPrice = new ArrayList<Inmatning.Elpris>();
+    private ArrayList<InputData.Elpris> bestWindowPrice = new ArrayList<InputData.Elpris>();
 
-    public void priceWindow(ArrayList<Inmatning.Elpris> prices, int windowSize) {
+    public void priceWindow(ArrayList<InputData.Elpris> prices, int windowSize) {
         if (prices.isEmpty()) {
             return;
         }
@@ -21,7 +21,7 @@ public class BestPrice {
         printBestWindowPrice();
     }
 
-    private void pushNewPriceArray(ArrayList<Inmatning.Elpris> priser, int index, int size) {
+    private void pushNewPriceArray(ArrayList<InputData.Elpris> priser, int index, int size) {
         bestWindowPrice.clear();
         for (int i = index; i < index + size; i++) {
             bestWindowPrice.add(priser.get(i));
@@ -32,7 +32,7 @@ public class BestPrice {
         if (!bestWindowPrice.isEmpty()) {
 
             System.out.println("Skriver ut elpriser");
-            for (Inmatning.Elpris elpris : bestWindowPrice) {
+            for (InputData.Elpris elpris : bestWindowPrice) {
                 System.out.println(elpris.fromTime + "-" + elpris.toTime + ": " + elpris.pris + " Öre");
             }
         } else {

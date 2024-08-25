@@ -4,12 +4,12 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
-        Inmatning inmatning = new Inmatning();
-        Sortera sortera = new Sortera();
+        InputData inputData = new InputData();
+        Sorting sorting = new Sorting();
         MinMax minMax = new MinMax();
         BestPrice priceWindow = new BestPrice();
 
-        String[] menuChoises = {"Inmatning", "Min, Max, Medel", "Sortera", "Bästa Laddningstid (4h)"};
+        String[] menuChoises = {"Inmatning av priser", "Min, Max, Medel", "Sortera", "Bästa Laddningstid (4h)"};
         String[] inputOptions = fetchInputOptions(menuChoises);
         Scanner sc = new Scanner(System.in);
         boolean isRunning = true;
@@ -23,29 +23,29 @@ public class Main {
             }
             switch (input) {
                 case "1":
-                    inmatning.inmatningUi();
+                    inputData.inputDataUi();
                     break;
                 case "2":
                     System.out.println("Skriver ut min max");
-                    if (inmatning.getElpriser().isEmpty()) {
-                        System.out.println("Finns inget att sortera");
+                    if (inputData.getPrices().isEmpty()) {
+                        System.out.println("Finns inget att sorting");
                     } else {
-                        minMax.minMaxMid(sortera.getSortedList(inmatning.getElpriser()));
+                        minMax.minMaxMid(sorting.getSortedList(inputData.getPrices()));
                     }
                     break;
                 case "3":
                     System.out.println("Sorterar listan av priser");
-                    if (inmatning.getElpriser().isEmpty()) {
-                        System.out.println("Finns inget att sortera!");
+                    if (inputData.getPrices().isEmpty()) {
+                        System.out.println("Finns inget att sorting!");
                     } else {
-                        sortera.sortList(inmatning.getElpriser());
-                        sortera.printList();
+                        sorting.sortList(inputData.getPrices());
+                        sorting.printList();
                     }
                     break;
 
                 case "4":
                     System.out.println("Visar bästa laddningstid");
-                    priceWindow.priceWindow(inmatning.getElpriser(), 4);
+                    priceWindow.priceWindow(inputData.getPrices(), 4);
                     break;
                 case "e":
                     isRunning = false;

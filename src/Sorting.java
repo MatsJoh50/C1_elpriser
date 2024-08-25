@@ -1,22 +1,22 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Sortera {
-    private ArrayList<Inmatning.Elpris> sortedList;
+public class Sorting {
+    private ArrayList<InputData.Elpris> sortedList;
 
-    public void sortList(ArrayList<Inmatning.Elpris> lista) {
+    public void sortList(ArrayList<InputData.Elpris> lista) {
         sortedList = new ArrayList<>(lista);
         Collections.sort(sortedList);
 
     }
 
-    public ArrayList<Inmatning.Elpris> getSortedList(ArrayList<Inmatning.Elpris> lista) {
+    public ArrayList<InputData.Elpris> getSortedList(ArrayList<InputData.Elpris> lista) {
         sortList(lista);
         return sortedList;
     }
 
     public void printList() {
-        for (Inmatning.Elpris el : sortedList) {
+        for (InputData.Elpris el : sortedList) {
             System.out.println(el.fromTime + "-" + el.toTime + ": " + el.pris + " öre");
         }
     }

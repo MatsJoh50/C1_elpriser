@@ -1,11 +1,10 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
-public class Inmatning {
-    private final ArrayList<Elpris> elpriser = new ArrayList<Elpris>();
+public class InputData {
+    private final ArrayList<Elpris> prices = new ArrayList<Elpris>();
 
     public static class Elpris implements Comparable<Elpris> {
         String fromTime;
@@ -24,7 +23,7 @@ public class Inmatning {
         }
     }
 
-    public void inmatningUi() throws FileNotFoundException {
+    public void inputDataUi() throws FileNotFoundException {
         Scanner in = new Scanner(System.in);
         System.out.println("1: Manuell inmatning.");
         System.out.println("2: Inmatning från fil.");
@@ -34,7 +33,7 @@ public class Inmatning {
         String inputCase1 = in.nextLine();
         if (!inputCase1.equals("1") && !inputCase1.equals("2") && !inputCase1.equals("3") && !inputCase1.equalsIgnoreCase("b")) {
             System.out.println("Vänligen välj ett korrekt alternativ.");
-            inmatningUi();
+            inputDataUi();
         }
         if (inputCase1.equals("1")) {
             manual();
@@ -48,7 +47,7 @@ public class Inmatning {
     }
 
     public void manual() {
-        elpriser.clear();
+        prices.clear();
         Scanner in = new Scanner(System.in);
         System.out.println("Ange pris i hela ören:");
         String inputFromTime;
@@ -62,12 +61,12 @@ public class Inmatning {
 //            int inputPris = Integer.parseInt(in.nextLine());
             int inputPris = safeInput();
             Elpris elpris = new Elpris(inputFromTime, inputToTime, inputPris);
-            elpriser.add(elpris);
+            prices.add(elpris);
         }
     }
 
     public void autoFill() {
-        elpriser.clear();
+        prices.clear();
         String inputFromTime;
         String inputToTime;
 
@@ -78,7 +77,7 @@ public class Inmatning {
             int inputPris = randomPrice();
             Elpris elpris = new Elpris(inputFromTime, inputToTime, inputPris);
             System.out.println(inputFromTime + "-" + inputToTime + ": " + inputPris);
-            elpriser.add(elpris);
+            prices.add(elpris);
         }
         System.out.println("Lista fylld!");
     }
@@ -106,10 +105,10 @@ public class Inmatning {
 
                         int price = 0;
                         if (Double.parseDouble(tokens[1]) < 0) {
-                            elpriser.add(new Elpris(timeFrom, timeTo, (int) Double.parseDouble(tokens[1])));
+                            prices.add(new Elpris(timeFrom, timeTo, (int) Double.parseDouble(tokens[1])));
                         } else {
                             price = Math.round(Float.parseFloat(tokens[1]));
-                            elpriser.add(new Elpris(timeFrom, timeTo, price));
+                            prices.add(new Elpris(timeFrom, timeTo, price));
                         }
 
 
@@ -123,8 +122,8 @@ public class Inmatning {
 
     }
 
-    public ArrayList<Elpris> getElpriser() {
-        return elpriser;
+    public ArrayList<Elpris> getPrices() {
+        return prices;
     }
 
     private int safeInput() {
