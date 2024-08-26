@@ -9,9 +9,9 @@ public class InputData {
     public static class Elpris implements Comparable<Elpris> {
         String fromTime;
         String toTime;
-        int pris;
+        double pris;
 
-        Elpris(String inputFromTime, String inputToTime, int pris) {
+        Elpris(String inputFromTime, String inputToTime, double pris) {
             this.fromTime = inputFromTime;
             this.toTime = inputToTime;
             this.pris = pris;
@@ -19,9 +19,10 @@ public class InputData {
 
         @Override
         public int compareTo(Elpris o) {
-            return this.pris - o.pris;
+            return (int) this.pris - (int) o.pris;
         }
     }
+
 
     public void inputDataUi() throws FileNotFoundException {
         Scanner in = new Scanner(System.in);
@@ -42,13 +43,12 @@ public class InputData {
         } else if (inputCase1.equals("2")) {
             fetchFromFile();
         } else if (inputCase1.equalsIgnoreCase("b")) {
-            return;
+//            return;
         }
     }
 
     public void manual() {
-        prices.clear();
-        Scanner in = new Scanner(System.in);
+//        prices.clear();
         System.out.println("Ange pris i hela ören:");
         String inputFromTime;
         String inputToTime;
@@ -58,8 +58,7 @@ public class InputData {
             inputToTime = String.format("%02d", i + 1);
 
             System.out.print("Kl: " + inputFromTime + "-" + inputToTime + ": ");
-//            int inputPris = Integer.parseInt(in.nextLine());
-            int inputPris = safeInput();
+            double inputPris = safeInput();
             Elpris elpris = new Elpris(inputFromTime, inputToTime, inputPris);
             prices.add(elpris);
         }
@@ -71,8 +70,8 @@ public class InputData {
         String inputToTime;
 
         for (int i = 0; i < 24; i++) {
-                inputFromTime = String.format("%02d", i);
-                inputToTime = String.format("%02d", i + 1);
+            inputFromTime = String.format("%02d", i);
+            inputToTime = String.format("%02d", i + 1);
 
             int inputPris = randomPrice();
             Elpris elpris = new Elpris(inputFromTime, inputToTime, inputPris);
@@ -86,13 +85,15 @@ public class InputData {
         return (int) (Math.random() * 100);
     }
 
-    public void fetchFromFile() throws FileNotFoundException {
+    public void fetchFromFile()  {
         try {
             System.out.println("läser från fil");
             String filename = "src/elpriser.csv";
             File fileElpriser = new File(filename);
             System.out.println("fil laddad");
-            if (fileElpriser.isFile()) {
+            if (!fileElpriser.isFile()) {
+                System.out.println("Kunde inte hitta filen");
+            } else {
                 System.out.println("fil godkänd");
                 Scanner reader = new Scanner(fileElpriser);
                 while (reader.hasNextLine()) {
@@ -103,12 +104,10 @@ public class InputData {
                         int formatTimeTo = Integer.parseInt(tokens[0].split(":")[0]) + 1;
                         String timeTo = String.format("%02d", formatTimeTo) + ":00";
 
-                        int price = 0;
                         if (Double.parseDouble(tokens[1]) < 0) {
                             prices.add(new Elpris(timeFrom, timeTo, (int) Double.parseDouble(tokens[1])));
                         } else {
-                            price = Math.round(Float.parseFloat(tokens[1]));
-                            prices.add(new Elpris(timeFrom, timeTo, price));
+                            prices.add(new Elpris(timeFrom, timeTo, Math.round(Float.parseFloat(tokens[1]))));
                         }
 
 
@@ -136,5 +135,5 @@ public class InputData {
         }
         return 0;
     }
-
 }
+

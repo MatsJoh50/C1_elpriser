@@ -9,8 +9,11 @@ public class Main {
         MinMax minMax = new MinMax();
         BestPrice priceWindow = new BestPrice();
 
+//        Array to build the menu
         String[] menuChoises = {"Inmatning av priser", "Min, Max, Medel", "Sortera", "Bästa Laddningstid (4h)"};
+//        Array to build if statments
         String[] inputOptions = fetchInputOptions(menuChoises);
+
         Scanner sc = new Scanner(System.in);
         boolean isRunning = true;
         while (isRunning) {
